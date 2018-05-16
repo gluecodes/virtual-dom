@@ -32,6 +32,13 @@ function patchRecursive(rootNode, patches, renderOptions) {
 
     for (var i = 0; i < indices.length; i++) {
         var nodeIndex = indices[i]
+
+        if (typeof renderOptions.onPatchBeingApplied === 'function') {
+            renderOptions.onPatchBeingApplied({
+                node: index[nodeIndex],
+                patch: patches[nodeIndex]
+            })
+        }
         rootNode = applyPatch(rootNode,
             index[nodeIndex],
             patches[nodeIndex],
